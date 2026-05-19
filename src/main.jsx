@@ -91,8 +91,7 @@ function getCharTypes(password) {
 function estimateEntropy(password) {
   if (!password) return 0;
 
-  const { hasLower, hasUpper, hasNumber, hasSymbol } =
-    getCharTypes(password);
+  const { hasLower, hasUpper, hasNumber, hasSymbol } = getCharTypes(password);
 
   let pool = 0;
 
@@ -129,8 +128,7 @@ function analyzePassword(password) {
   const entropy = estimateEntropy(password);
   const lower = password.toLowerCase();
 
-  const { hasLower, hasUpper, hasNumber, hasSymbol } =
-    getCharTypes(password);
+  const { hasLower, hasUpper, hasNumber, hasSymbol } = getCharTypes(password);
 
   const isCommon = COMMON_PASSWORDS.includes(lower);
   const isNumbersOnly = /^[0-9]+$/.test(password);
@@ -320,9 +318,7 @@ function generatePassword() {
 }
 
 function improvePassword(password) {
-  const cleaned = password
-    .replace(/[^A-Za-z0-9]/g, "")
-    .slice(0, 8);
+  const cleaned = password.replace(/[^A-Za-z0-9]/g, "").slice(0, 8);
 
   const base =
     cleaned.length >= 4
@@ -426,20 +422,26 @@ function App() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-950">
       <section className="mx-auto flex max-w-6xl flex-col gap-8 px-5 py-10">
-        <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr] md:items-center">
+        <div className="grid gap-8 md:grid-cols-[1.05fr_0.95fr] md:items-center">
           <div>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm text-cyan-700">
-              🔐 Cybersecurity tool
-            </div>
+            <div className="flex items-center gap-4 md:gap-5">
+  <img
+    src="/LockWise1.png"
+    alt="LockWise logo"
+    className="h-24 w-24 shrink-0 rounded-2xl object-contain md:h-28 md:w-28"
+  />
 
-            <h2 className="text-2xl font-bold tracking-tight text-slate-950 md:text-4xl">
-              LockWise: Strong Password Coach
-            </h2>
+  <h2 className="text-2xl font-bold leading-tight tracking-tight text-slate-950 md:text-4xl">
+    LockWise:
+    <br />
+    <span className="text-cyan-600">Strong Password Coach</span>
+  </h2>
+</div>
 
-            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 md:text-lg">
+            <p className="mt-6 max-w-2xl text-base leading-7 text-slate-600 md:text-lg">
               Type a password and get instant feedback, crack difficulty,
-              safety checks, and smart suggestions. All analysis runs in your browser, Nothing is uploaded for
-              security and privacy reasons.
+              safety checks, and smart suggestions. All analysis runs in your
+              browser. Nothing is uploaded for security and privacy reasons.
             </p>
           </div>
 
@@ -451,19 +453,19 @@ function App() {
                 </p>
 
                 <h2 className="mt-1 text-2xl font-bold text-slate-950">
-                  {password ? analysis.label : "Not tested"}
+                  {password.length === 0 ? "Not tested" : analysis.label}
                 </h2>
               </div>
 
-             <div>
-              {password.length === 0 ? null : analysis.score >= 8 ? (
-                <span className="text-4xl">✅</span>
-              ) : analysis.score >= 4 ? (
-                <span className="text-4xl">⚠️</span>
-              ) : (
-                <span className="text-3xl">❌</span>
-              )}
-            </div>
+              <div>
+                {password.length === 0 ? null : analysis.score >= 8 ? (
+                  <span className="text-4xl">✅</span>
+                ) : analysis.score >= 4 ? (
+                  <span className="text-4xl">⚠️</span>
+                ) : (
+                  <span className="text-3xl">❌</span>
+                )}
+              </div>
             </div>
 
             <div className="h-3 overflow-hidden rounded-full bg-slate-200">
@@ -497,8 +499,7 @@ function App() {
               <h3 className="text-2xl font-semibold text-slate-950">
                 Test your password
               </h3>
-
-              </div>
+            </div>
 
             <div className="relative">
               <input
@@ -553,23 +554,23 @@ function App() {
             </div>
 
             {password.length > 0 && (
-            <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <div className="space-y-3">
-                {analysis.checks.map((check) => (
-                  <div
-                    key={check.label}
-                    className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-sm"
-                  >
-                    <span className="text-sm text-slate-700">
-                      {check.label}
-                    </span>
+              <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div className="space-y-3">
+                  {analysis.checks.map((check) => (
+                    <div
+                      key={check.label}
+                      className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-sm"
+                    >
+                      <span className="text-sm text-slate-700">
+                        {check.label}
+                      </span>
 
-                    <span>{check.passed ? "✅" : "❌"}</span>
-                  </div>
-                ))}
+                      <span>{check.passed ? "✅" : "❌"}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
           </div>
 
           <div className="relative overflow-hidden rounded-3xl border border-slate-300 bg-white p-5 shadow-sm ring-1 ring-slate-200 md:p-6">
